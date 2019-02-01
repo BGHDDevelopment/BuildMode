@@ -1,0 +1,23 @@
+#=======================================================
+configVersion: 3.2
+#DO NOT CHANGE PLEASE.
+#=======================================================
+#Plugin Page: https://www.spigotmc.org/resources/39103
+#=======================================================
+Update:
+  Enabled: true
+#buildmode.update
+#Enables if there is a message on-join when the plugin is outdated. 
+#=======================================================
+#Commands:
+#/build - buildmode.toggle
+#/build (playername) - buildmode.others
+#=======================================================
+#Messages:
+InvalidUsage: "&cIncorrect usage! Use this command like this: /build <player>"
+NoPermission: "&c(!) You do not have permisson to use this command!"
+OfflinePlayer: "&cYou can not toggle BuildMode for a offline player!"
+Enabled: "&7You have &aEnabled &7BuildMode!"
+Disabled: "&7You have &cDisabled &7BuildMode!"
+EnabledOther: "&7You have &aEnabled &7BuildMode for &e%player%"
+DisabledOther: "&7You have &cDisabled &7BuildMode for &e%player%"

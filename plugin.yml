@@ -1,0 +1,7 @@
+name: BuildModeBGHD
+version: 3.2
+author: BGHDDevelopment
+main: me.noodles.buildmode.main.MainBuildMode
+commands:
+   build:
+     description: Toggle BuildMode
