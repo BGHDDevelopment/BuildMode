@@ -1,48 +1,39 @@
+/*
+ * Copyright (c) BGHDDevelopment.
+ * Please refer to the plugin page or GitHub page for our open-source license.
+ * If you have any questions please email ceo@bghddevelopment or reach us on Discord
+ */
+
 package me.noodles.buildmode.updater;
-import java.net.*;
 
 import me.noodles.buildmode.main.MainBuildMode;
-
-import java.io.*;
+import org.bukkit.Bukkit;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class UpdateChecker
 {
-    public MainBuildMode plugin;
-    public String version;
-    
-    
-    public UpdateChecker(MainBuildMode  plugin) {
-        this.plugin = plugin;
-        this.version = this.getLatestVersion();
+    private MainBuildMode plugin;
+    private int resourceId;
 
+    public UpdateChecker(MainBuildMode plugin, int resourceId) {
+        this.plugin = plugin;
+        this.resourceId = resourceId;
     }
-    
-    @SuppressWarnings("unused")
-	public String getLatestVersion() {
-        try {
-            final int resource = 39103;
-            final HttpURLConnection con = (HttpURLConnection)new URL("https://api.spigotmc.org/legacy/update.php?resource=39103").openConnection();
-            con.setDoOutput(true);
-            con.setRequestMethod("POST");
-            con.getOutputStream().write("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource=39103".getBytes("UTF-8"));
-            final String version = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
-            if (version.length() <= 7) {
-                return version;
+
+    public void getLatestVersion(Consumer<String> consumer) {
+        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
+                if (scanner.hasNext()) {
+                    consumer.accept(scanner.next());
+                }
+            } catch (IOException exception) {
+                this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
             }
-        }
-        catch (Exception ex) {
-            System.out.println("---------------------------------");
-            this.plugin.getLogger().info("Failed to check for a update!");
-            System.out.println("---------------------------------");
-        }
-        return null;
-    }
-    
-    public boolean isConnected() {
-        return this.version != null;
-    }
-    
-    public boolean hasUpdate() {
-        return !this.version.equals(this.plugin.getDescription().getVersion());
+        });
     }
 }
+

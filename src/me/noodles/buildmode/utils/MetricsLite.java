@@ -1,4 +1,4 @@
-package me.noodles.buildmode;
+package me.noodles.buildmode.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

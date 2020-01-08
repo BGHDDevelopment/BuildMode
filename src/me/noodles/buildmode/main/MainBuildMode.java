@@ -1,11 +1,11 @@
 package me.noodles.buildmode.main;
 
-import me.noodles.buildmode.Logger;
-import me.noodles.buildmode.MetricsLite;
-import me.noodles.buildmode.Settings;
+import me.noodles.buildmode.utils.Logger;
+import me.noodles.buildmode.utils.MetricsLite;
+import me.noodles.buildmode.utils.Settings;
 import org.bukkit.plugin.java.*;
 
-import me.noodles.buildmode.Command;
+import me.noodles.buildmode.commands.Command;
 import me.noodles.buildmode.events.Events;
 import me.noodles.buildmode.updater.UpdateChecker;
 import me.noodles.buildmode.updater.UpdateJoinEvent;
@@ -15,12 +15,9 @@ import java.io.IOException;
 import java.util.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
-import org.bukkit.Bukkit;
-import org.bukkit.command.*;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.*;
 
 public class MainBuildMode extends JavaPlugin
 {
@@ -65,20 +62,17 @@ public class MainBuildMode extends JavaPlugin
         Logger.log(Logger.LogLevel.OUTLINE,  "********************");
         Logger.log(Logger.LogLevel.INFO, "Checking for updates...");
         this.setEnabled(true);
-        this.checker = new UpdateChecker(this);
-        if (this.checker.isConnected()) {
-            if (this.checker.hasUpdate()) {
-                Logger.log(Logger.LogLevel.OUTLINE,  "********************");
+        new UpdateChecker(this, 39103).getLatestVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                Logger.log(Logger.LogLevel.SUCCESS,("BuildMode is up to date!"));
+            } else {
+                Logger.log(Logger.LogLevel.OUTLINE,  "*********************************************************************");
                 Logger.log(Logger.LogLevel.WARNING,("BuildMode is outdated!"));
-                Logger.log(Logger.LogLevel.WARNING,("Newest version: " + this.checker.getLatestVersion()));
+                Logger.log(Logger.LogLevel.WARNING,("Newest version: " + version));
                 Logger.log(Logger.LogLevel.WARNING,("Your version: " + Settings.VERSION));
                 Logger.log(Logger.LogLevel.WARNING,("Please Update Here: " + Settings.PLUGIN_URL));
-                Logger.log(Logger.LogLevel.OUTLINE,  "********************");
-            }
-            else {
-                Logger.log(Logger.LogLevel.SUCCESS, "BuildMode is up to date!");
-            }
-        }
+                Logger.log(Logger.LogLevel.OUTLINE,  "*********************************************************************");			}
+        });
     }
 
     public static MainBuildMode getInstance() {

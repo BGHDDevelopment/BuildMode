@@ -1,4 +1,4 @@
-package me.noodles.buildmode;
+package me.noodles.buildmode.commands;
 
 import org.bukkit.command.*;
 import org.bukkit.entity.*;
