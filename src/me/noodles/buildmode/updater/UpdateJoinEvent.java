@@ -24,7 +24,7 @@ public class UpdateJoinEvent implements Listener
     public void onJoin(final PlayerJoinEvent e) {
         Player p = e.getPlayer();
         if (MainBuildMode.plugin.getConfig().getBoolean("Update.Enabled") == true) {
-            if (p.hasPermission("luckpermsgui.update")) {
+            if (p.hasPermission("buildmode.update")) {
                 new UpdateChecker(plugin, 39103).getLatestVersion(version -> {
                     if (!MainBuildMode.getInstance().getDescription().getVersion().equalsIgnoreCase(version)) {
                         p.sendMessage(ChatColor.GRAY + "****************************************************************");
