@@ -8,7 +8,7 @@ configVersion: 3.2
 Update:
   Enabled: true
 #buildmode.update
-#Enables if there is a message on-join when the plugin is outdated. 
+#Enables if there is a message on-join when the plugin is outdated.
 #=======================================================
 #Commands:
 #/build - buildmode.toggle
