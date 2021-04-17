@@ -3,6 +3,9 @@ package me.noodles.buildmode.events;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.*;
 
 import me.noodles.buildmode.main.MainBuildMode;
@@ -52,7 +55,33 @@ public class Events implements Listener
         }
         e.setCancelled(true);
     }
-    
+
+    @EventHandler
+    public void onArmourStandBreak(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player) {
+            final Player p = (Player) e.getDamager();
+            if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
+                if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p)) {
+                    return;
+                }
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onArmourStandBreakSurvival(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player) {
+            final Player p = (Player) e.getDamager();
+            if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
+                if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p)) {
+                    return;
+                }
+                e.setCancelled(true);
+            }
+        }
+    }
+
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
