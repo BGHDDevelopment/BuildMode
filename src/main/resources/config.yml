@@ -1,5 +1,5 @@
 #=======================================================
-configVersion: 3.2
+configVersion: 3.3
 #DO NOT CHANGE PLEASE.
 #=======================================================
 #Plugin Page: https://www.spigotmc.org/resources/39103
@@ -22,3 +22,10 @@ Enabled: "&7You have &aEnabled &7BuildMode!"
 Disabled: "&7You have &cDisabled &7BuildMode!"
 EnabledOther: "&7You have &aEnabled &7BuildMode for &e%player%"
 DisabledOther: "&7You have &cDisabled &7BuildMode for &e%player%"
+# Disabled Worlds | To enable BuildMode in all worlds set DisabledWorlds to []
+DisabledWorlds:
+  - 'disabledworld1'
+  - 'disabledworld2'
+  - 'disabledworld3'
+# World Guard | Should build mode be disabled if region has "BLOCK-PLACE" and "BLOCK-BREAK" set to true.
+WorldGuardAPISupport: true
