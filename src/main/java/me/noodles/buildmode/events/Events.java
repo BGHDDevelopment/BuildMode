@@ -1,33 +1,21 @@
 package me.noodles.buildmode.events;
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.util.Location;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.sk89q.worldguard.protection.regions.RegionContainer;
-import com.sk89q.worldguard.protection.regions.RegionQuery;
-import me.noodles.buildmode.utils.checkRegion;
-import org.bukkit.block.Block;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
-import org.bukkit.event.block.*;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.player.*;
-
 import me.noodles.buildmode.main.MainBuildMode;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
-import java.util.Set;
 
 public class Events implements Listener {
 
     private MainBuildMode main;
-    List<String> disabledWorlds = MainBuildMode.plugin.getConfig().getStringList("DisabledWorlds");
-    RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+    List<String> worldsList = MainBuildMode.plugin.getConfig().getStringList("WorldsList");
     public Events(MainBuildMode main) {
         this.main = main;
     }
@@ -35,7 +23,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || disabledWorlds.contains(p.getWorld().getName()) || checkRegion.checkRegion(p)) {
+        if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -44,7 +32,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockPlaceSurvival(BlockPlaceEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || disabledWorlds.contains(p.getWorld().getName())) {
+        if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -53,7 +41,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || disabledWorlds.contains(p.getWorld().getName())) {
+        if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -62,7 +50,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockBreakSurvival(BlockBreakEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || disabledWorlds.contains(p.getWorld().getName())) {
+        if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -73,7 +61,7 @@ public class Events implements Listener {
         if (e.getDamager() instanceof Player) {
             final Player p = (Player) e.getDamager();
             if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
-                if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || disabledWorlds.contains(p.getWorld().getName())) {
+                if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
                     return;
                 }
                 e.setCancelled(true);
@@ -86,7 +74,7 @@ public class Events implements Listener {
         if (e.getDamager() instanceof Player) {
             final Player p = (Player) e.getDamager();
             if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
-                if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || disabledWorlds.contains(p.getWorld().getName())) {
+                if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
                     return;
                 }
                 e.setCancelled(true);
@@ -101,4 +89,33 @@ public class Events implements Listener {
             MainBuildMode.playerlist.remove(p);
         }
     }
+
+    public Boolean checkWorld(Player p) {
+        if (MainBuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds") == true) {
+            if (worldsList.contains(p.getWorld().getName())) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (MainBuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds") == false) {
+                if (worldsList.contains(p.getWorld().getName())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        return false;
+        }
+
+    /*public Boolean checkPerm(Player p) {
+        if (MainBuildMode.getInstance().getConfig().getBoolean("effectOnlyPerm") == true) {
+            if (p.hasPermission("buildmode.nobuild")) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }*/
 }

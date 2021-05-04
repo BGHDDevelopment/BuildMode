@@ -22,10 +22,13 @@ Enabled: "&7You have &aEnabled &7BuildMode!"
 Disabled: "&7You have &cDisabled &7BuildMode!"
 EnabledOther: "&7You have &aEnabled &7BuildMode for &e%player%"
 DisabledOther: "&7You have &cDisabled &7BuildMode for &e%player%"
-# Disabled Worlds | To enable BuildMode in all worlds set DisabledWorlds to []
-DisabledWorlds:
-  - 'disabledworld1'
-  - 'disabledworld2'
-  - 'disabledworld3'
-# World Guard | Should build mode be disabled if region has "BLOCK-PLACE" and "BLOCK-BREAK" set to true.
-WorldGuardAPISupport: true
+# Worlds List | To blacklist/whitelist all worlds put []
+WorldsList:
+  - 'world1'
+  - 'world2'
+  - 'world3'
+# Should worlds on WorldsList be blacklisted or whitelisted?
+# true = worlds list will be blacklisted | false = worlds list will be whitelisted.
+# Blacklisted Worlds: can't build in worlds if on the list.
+# Whitelisted Worlds: can build in worlds if on the list.
+blacklistedWorlds: false
