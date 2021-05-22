@@ -1,5 +1,5 @@
 #=======================================================
-configVersion: 3.2
+configVersion: 3.3
 #DO NOT CHANGE PLEASE.
 #=======================================================
 #Plugin Page: https://www.spigotmc.org/resources/39103
@@ -22,3 +22,13 @@ Enabled: "&7You have &aEnabled &7BuildMode!"
 Disabled: "&7You have &cDisabled &7BuildMode!"
 EnabledOther: "&7You have &aEnabled &7BuildMode for &e%player%"
 DisabledOther: "&7You have &cDisabled &7BuildMode for &e%player%"
+# Worlds List | To blacklist/whitelist all worlds put []
+WorldsList:
+  - 'world1'
+  - 'world2'
+  - 'world3'
+# Should worlds on WorldsList be blacklisted or whitelisted?
+# true = worlds list will be blacklisted | false = worlds list will be whitelisted.
+# Blacklisted Worlds: can't build in worlds if on the list.
+# Whitelisted Worlds: can build in worlds if on the list.
+blacklistedWorlds: false

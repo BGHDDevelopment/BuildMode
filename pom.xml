@@ -6,7 +6,7 @@
 
     <groupId>me.noodles</groupId>
     <artifactId>buildmode</artifactId>
-    <version>3.5</version>
+    <version>3.6</version>
     <packaging>jar</packaging>
 
     <name>BuildModeBGHD</name>
@@ -62,6 +62,10 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
         </repository>
     </repositories>
 
