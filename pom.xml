@@ -6,7 +6,7 @@
 
     <groupId>me.noodles</groupId>
     <artifactId>buildmode</artifactId>
-    <version>3.6</version>
+    <version>3.7</version>
     <packaging>jar</packaging>
 
     <name>BuildModeBGHD</name>
