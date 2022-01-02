@@ -1,23 +1,25 @@
 package me.noodles.buildmode.main;
 
-import me.noodles.buildmode.utils.Logger;
-import me.noodles.buildmode.utils.MetricsLite;
-import me.noodles.buildmode.utils.Settings;
-import org.bukkit.plugin.java.*;
-
 import me.noodles.buildmode.commands.Command;
 import me.noodles.buildmode.events.Events;
 import me.noodles.buildmode.updater.UpdateChecker;
 import me.noodles.buildmode.updater.UpdateJoinEvent;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
+import me.noodles.buildmode.utils.Logger;
+import me.noodles.buildmode.utils.MetricsLite;
+import me.noodles.buildmode.utils.PlaceHolderAPIExpansion;
+import me.noodles.buildmode.utils.Settings;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainBuildMode extends JavaPlugin
 {
@@ -57,6 +59,11 @@ public class MainBuildMode extends JavaPlugin
         Logger.log(Logger.LogLevel.INFO, "Loading Config's...");
         this.createFiles();
         Logger.log(Logger.LogLevel.INFO, "Config's Registered!");
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            Logger.log(Logger.LogLevel.INFO, "Registering Placeholders...");
+            new PlaceHolderAPIExpansion().register();
+            Logger.log(Logger.LogLevel.INFO, "Placeholders Registered!");
+        }
         Logger.log(Logger.LogLevel.SUCCESS, "BuildMode Version: " + Settings.VERSION + " Loaded.");
         this.setEnabled(true);
         Logger.log(Logger.LogLevel.OUTLINE,  "********************");
