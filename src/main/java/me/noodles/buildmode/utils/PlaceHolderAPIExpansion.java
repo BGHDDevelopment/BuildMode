@@ -38,9 +38,9 @@ public class PlaceHolderAPIExpansion extends PlaceholderExpansion {
     public String onPlaceholderRequest(Player player, String identifier) {
         if (identifier.equalsIgnoreCase("status")) {
             if (MainBuildMode.playerlist.contains(player)) {
-                return "&aEnabled";
+                return "Enabled";
             } else if (!MainBuildMode.playerlist.contains(player)) {
-                return "&cDisabled";
+                return "Disabled";
             }
         }
         return null;
