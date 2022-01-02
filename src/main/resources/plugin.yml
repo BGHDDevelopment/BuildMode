@@ -3,7 +3,6 @@ version: ${project.version}
 main: me.noodles.buildmode.main.MainBuildMode
 authors: [BGHDDevelopment]
 website: https://bghddevelopment.com/
-softdepend: [WorldGuard, PlaceholderAPI]
 commands:
   build:
     description: Toggle BuildMode
