@@ -1,7 +1,6 @@
 package me.noodles.buildmode.updater;
 
 import me.noodles.buildmode.utils.Color;
-import me.noodles.buildmode.utils.Settings;
 import org.bukkit.event.player.*;
 
 import me.noodles.buildmode.main.MainBuildMode;
@@ -9,7 +8,6 @@ import me.noodles.buildmode.main.MainBuildMode;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
-import sun.applet.Main;
 
 public class UpdateJoinEvent implements Listener
 {
