@@ -29,7 +29,7 @@ public class Color {
     }
 
     public static void log(String message) {
-        Bukkit.getConsoleSender().sendMessage("&7[&9BuildMode&7] " + Color.translate(message));
+        Bukkit.getConsoleSender().sendMessage(Color.translate("&7[&9BuildMode&7] " + message));
     }
 
 }
