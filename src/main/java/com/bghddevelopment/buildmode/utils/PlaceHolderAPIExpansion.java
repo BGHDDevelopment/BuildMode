@@ -1,7 +1,7 @@
-package me.noodles.buildmode.utils;
+package com.bghddevelopment.buildmode.utils;
 
+import com.bghddevelopment.buildmode.BuildMode;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.noodles.buildmode.main.MainBuildMode;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,9 +37,9 @@ public class PlaceHolderAPIExpansion extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, String identifier) {
         if (identifier.equalsIgnoreCase("status")) {
-            if (MainBuildMode.playerlist.contains(player)) {
+            if (BuildMode.playerlist.contains(player)) {
                 return "enabled";
-            } else if (!MainBuildMode.playerlist.contains(player)) {
+            } else if (!BuildMode.playerlist.contains(player)) {
                 return "disabled";
             }
         }

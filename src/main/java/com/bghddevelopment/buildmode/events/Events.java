@@ -1,6 +1,6 @@
-package me.noodles.buildmode.events;
+package com.bghddevelopment.buildmode.events;
 
-import me.noodles.buildmode.main.MainBuildMode;
+import com.bghddevelopment.buildmode.BuildMode;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,16 +14,12 @@ import java.util.List;
 
 public class Events implements Listener {
 
-    private MainBuildMode main;
-    List<String> worldsList = MainBuildMode.plugin.getConfig().getStringList("WorldsList");
-    public Events(MainBuildMode main) {
-        this.main = main;
-    }
+    List<String> worldsList = BuildMode.getInstance().getConfig().getStringList("WorldsList");
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
+        if (!p.getGameMode().name().equals("CREATIVE") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -32,7 +28,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockPlaceSurvival(BlockPlaceEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
+        if (!p.getGameMode().name().equals("SURVIVAL") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -41,7 +37,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
+        if (!p.getGameMode().name().equals("CREATIVE") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -50,7 +46,7 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockBreakSurvival(BlockBreakEvent e) {
         final Player p = e.getPlayer();
-        if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
+        if (!p.getGameMode().name().equals("SURVIVAL") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
             return;
         }
         e.setCancelled(true);
@@ -61,7 +57,7 @@ public class Events implements Listener {
         if (e.getDamager() instanceof Player) {
             final Player p = (Player) e.getDamager();
             if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
-                if (!p.getGameMode().name().equals("CREATIVE") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
+                if (!p.getGameMode().name().equals("CREATIVE") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
                     return;
                 }
                 e.setCancelled(true);
@@ -74,7 +70,7 @@ public class Events implements Listener {
         if (e.getDamager() instanceof Player) {
             final Player p = (Player) e.getDamager();
             if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
-                if (!p.getGameMode().name().equals("SURVIVAL") || MainBuildMode.playerlist.contains(p) || checkWorld(p)) {
+                if (!p.getGameMode().name().equals("SURVIVAL") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
                     return;
                 }
                 e.setCancelled(true);
@@ -85,37 +81,25 @@ public class Events implements Listener {
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
-        if (MainBuildMode.playerlist.contains(p)) {
-            MainBuildMode.playerlist.remove(p);
+        if (BuildMode.playerlist.contains(p)) {
+            BuildMode.playerlist.remove(p);
         }
     }
 
     public Boolean checkWorld(Player p) {
-        if (MainBuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds") == true) {
+        if (BuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds")) {
             if (worldsList.contains(p.getWorld().getName())) {
                 return false;
             } else {
                 return true;
             }
-        } else if (MainBuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds") == false) {
-                if (worldsList.contains(p.getWorld().getName())) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        return false;
-        }
-
-    /*public Boolean checkPerm(Player p) {
-        if (MainBuildMode.getInstance().getConfig().getBoolean("effectOnlyPerm") == true) {
-            if (p.hasPermission("buildmode.nobuild")) {
+        } else if (!BuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds")) {
+            if (worldsList.contains(p.getWorld().getName())) {
                 return true;
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
-    }*/
+        return false;
+    }
 }

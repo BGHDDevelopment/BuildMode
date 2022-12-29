@@ -1,9 +1,6 @@
 name: BuildModeBGHD
-version: ${project.version}
-main: me.noodles.buildmode.main.MainBuildMode
-authors: [BGHDDevelopment]
+version: 3.8
+main: com.bghddevelopment.buildmode.BuildMode
+author: BGHDDevelopmentLLC
 website: https://bghddevelopment.com/
 softdepend: [PlaceholderAPI]
-commands:
-  build:
-    description: Toggle BuildMode
