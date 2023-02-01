@@ -41,17 +41,10 @@ public class BuildMode extends JavaPlugin
     public void onEnable() {
         instance = this;
         Color.log("&eInitializing BuildMode Version: " + getDescription().getVersion());
+        this.createFiles();
         new Metrics(this,3303);
-        Color.log("&eRegistering Listeners...");
         getServer().getPluginManager().registerEvents(new Events(), this);
-        this.createFiles();
-        Color.log("&eListeners Registered!");
-        Color.log("&eRegistering Commands...");
         loadCommands();
-        Color.log("&eCommands Registered!");
-        Color.log("&eLoading Config's...");
-        this.createFiles();
-        Color.log("&eConfig's Registered!");
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             Color.log("&eRegistering Placeholders...");
             new PlaceHolderAPIExpansion().register();
