@@ -28,12 +28,24 @@ public class BuildModeCommand extends BaseCommand {
                 player.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("Disabled")));
                 Bukkit.broadcast(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledNotification")
                         .replace("%player%", player.getName())), "buildmode.notify");
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    if (online.hasPermission("buildmode.notify")) {
+                        online.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledNotification")
+                                .replace("%player%", player.getName())));
+                    }
+                }
                 return;
             }
             BuildMode.playerlist.add(player);
             player.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("Enabled")));
-            Bukkit.broadcast(Color.translate(BuildMode.getInstance().getConfig().getString("EnabledNotification")
-                    .replace("%player%", player.getName())), "buildmode.notify");
+
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                if (online.hasPermission("buildmode.notify")) {
+                    online.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("EnabledNotification")
+                            .replace("%player%", player.getName())));
+                }
+            }
+
         } else {
             if (args.length != 1) {
                 sender.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("InvalidUsage")));
@@ -51,15 +63,25 @@ public class BuildModeCommand extends BaseCommand {
                 BuildMode.playerlist.remove(target);
                 sender.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledOther").replace("%player%", player.getName())));
                 player.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("Disabled")));
-                Bukkit.broadcast(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledNotification")
-                        .replace("%player%", player.getName())), "buildmode.notify");
+
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    if (online.hasPermission("buildmode.notify")) {
+                        online.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledNotification")
+                                .replace("%player%", player.getName())));
+                    }
+                }
                 return;
             }
             BuildMode.playerlist.add(target);
             sender.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("EnabledOther").replace("%player%", player.getName())));
             player.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("Enabled")));
-            Bukkit.broadcast(Color.translate(BuildMode.getInstance().getConfig().getString("EnabledNotification")
-                    .replace("%player%", player.getName())), "buildmode.notify");
+
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                if (online.hasPermission("buildmode.notify")) {
+                    online.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("EnabledNotification")
+                            .replace("%player%", player.getName())));
+                }
+            }
         }
     }
 }
