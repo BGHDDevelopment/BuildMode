@@ -8,13 +8,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 
 public class Events implements Listener {
 
-    List<String> worldsList = BuildMode.getInstance().getConfig().getStringList("WorldsList");
+    private List<String> worldsList = BuildMode.getInstance().getConfig().getStringList("WorldsList");
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
@@ -79,6 +81,46 @@ public class Events implements Listener {
     }
 
     @EventHandler
+    public void onBukkitPlace(PlayerBucketEmptyEvent e) {
+        final Player p = e.getPlayer();
+
+        if (!p.getGameMode().name().equals("CREATIVE") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
+            return;
+        }
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBukkitPlaceSurvival(PlayerBucketEmptyEvent e) {
+        final Player p = e.getPlayer();
+
+        if (!p.getGameMode().name().equals("SURVIVAL") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
+            return;
+        }
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBukkitFill(PlayerBucketFillEvent e) {
+        final Player p = e.getPlayer();
+
+        if (!p.getGameMode().name().equals("CREATIVE") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
+            return;
+        }
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBukkitFillSurvival(PlayerBucketFillEvent e) {
+        final Player p = e.getPlayer();
+
+        if (!p.getGameMode().name().equals("SURVIVAL") || BuildMode.playerlist.contains(p) || checkWorld(p)) {
+            return;
+        }
+        e.setCancelled(true);
+    }
+
+    @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
         if (BuildMode.playerlist.contains(p)) {
@@ -86,7 +128,7 @@ public class Events implements Listener {
         }
     }
 
-    public Boolean checkWorld(Player p) {
+    private Boolean checkWorld(Player p) {
         if (BuildMode.getInstance().getConfig().getBoolean("blacklistedWorlds")) {
             if (worldsList.contains(p.getWorld().getName())) {
                 return false;
