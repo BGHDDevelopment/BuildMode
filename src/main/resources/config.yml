@@ -13,6 +13,8 @@ Enabled: "&7You have &aEnabled &7BuildMode!"
 Disabled: "&7You have &cDisabled &7BuildMode!"
 EnabledOther: "&7You have &aEnabled &7BuildMode for &e%player%"
 DisabledOther: "&7You have &cDisabled &7BuildMode for &e%player%"
+EnabledNotification: "&7&o[%player%: &e&oEnabled BuildMode&7&o]"
+DisabledNotification: "&7&o[%player%: &e&oDisabled BuildMode&7&o]"
 # Worlds List | To blacklist/whitelist all worlds put []
 WorldsList:
   - 'world1'
