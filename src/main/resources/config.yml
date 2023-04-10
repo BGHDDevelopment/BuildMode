@@ -5,6 +5,7 @@
 #Commands:
 #/build - buildmode.toggle
 #/build (playername) - buildmode.others
+#buildmode.notify - Notify players of being enabled/disabled.
 #=======================================================
 #Messages:
 InvalidUsage: "&cIncorrect usage! Use this command like this: /build <player>"
