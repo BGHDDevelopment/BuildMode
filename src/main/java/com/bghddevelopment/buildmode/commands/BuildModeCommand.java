@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
-@CommandAlias("buildmode|buildmode")
+@CommandAlias("buildmode|buildmode|build")
 @Description("Main BuildMode command.")
 @CommandPermission("buildmode.toggle")
 @Conditions("noconsole")
