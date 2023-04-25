@@ -26,8 +26,7 @@ public class BuildModeCommand extends BaseCommand {
             if (BuildMode.playerlist.contains(player)) {
                 BuildMode.playerlist.remove(player);
                 player.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("Disabled")));
-                Bukkit.broadcast(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledNotification")
-                        .replace("%player%", player.getName())), "buildmode.notify");
+
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online.hasPermission("buildmode.notify")) {
                         online.sendMessage(Color.translate(BuildMode.getInstance().getConfig().getString("DisabledNotification")
