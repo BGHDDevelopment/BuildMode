@@ -75,7 +75,7 @@ public class BuildMode extends JavaPlugin
         manager.getCommandConditions().addCondition("noconsole", (context) -> {
             BukkitCommandIssuer issuer = context.getIssuer();
             if (!issuer.isPlayer()) {
-                throw new ConditionFailedException("Console cannot use this command."); //replace with config language
+                throw new ConditionFailedException("Console cannot use this command.");
             }
         });
         manager.registerCommand(new BuildModeCommand());
